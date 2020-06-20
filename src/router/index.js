@@ -1,11 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import demo from '@/components/demo'
-import fenye from '@/components/fenye'
+import fenye from '@/views/fenye'
 import login from '@/components/login'
 import register from '@/components/register'
-import vuex_jian from '@/components/vuex_jian'
 import store from '@/store'
 Vue.use(Router)
 const originalPush = Router.prototype.push
@@ -22,11 +19,6 @@ const router = new Router({
                 redirect: '/fenye'
             },
             {
-                path: '/demo',
-                name: 'demo',
-                component: demo
-            },
-            {
                 path: '/fenye',
                 name: 'fenye',
                 component: fenye
@@ -40,11 +32,6 @@ const router = new Router({
                 path: '/register',
                 name: '/register',
                 component: register
-            },
-            {
-                path: '/vuex_jian',
-                name: '/vuex_jian',
-                component: vuex_jian
             }
         ]
     })

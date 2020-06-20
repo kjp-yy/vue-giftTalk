@@ -2,9 +2,6 @@
   <div>
     <top></top>
     <div class="wrap">
-      <!-- <child :list="kk"></child> -->
-      <!-- <child @send="look($event)"></child> -->
-      <!-- {{kk}} -->
       <div style="width:100%;margin:10px auto;margin-top:100px">
         <el-table :data="datalist">
           <el-table-column prop="unixtime" label="时间戳" width="180"></el-table-column>
@@ -32,8 +29,7 @@
   </div>
 </template>
 <script>
-import top from "./header";
-// import child from "./child_cz";
+import top from "@/components/header";
 export default {
   components: {
     top
@@ -48,27 +44,6 @@ export default {
   },
   mounted() {
     this.getdata();
-    // let loca = localStorage.getItem("Authorization");
-
-    // if (loca == "" || loca == null) {
-    //   this.$router.push("/login");
-    // }
-    //  this.$axios.get("/swagger/home/recommendSubject/list",{
-    //         params:{
-    //             subjectName:this.getTopVal,
-    //             recommendStatus:'',
-    //             pageSize:10,
-    //             pageNum:1
-    //         }
-    //     }).then(res=>{
-    //         console.log(res);
-    //         // if (res.data.code==401) {
-    //         //     this.$router.push("/")
-    //         // }else{
-    //         //     this.subjectlist=res.data.data.list;
-    //         // }
-        
-    //     })
   },
   methods: {
   //  获取聚合里面的笑话大全的数据
