@@ -28,7 +28,7 @@
           <img src alt />
         </div>
       </div>
-      <div class="right_main">
+      <div class="right_main" >
         <div class="gvname">
           <router-link to>
             <img src="../assets/xin.png" alt />
@@ -37,7 +37,7 @@
         </div>
 
         <router-link class="rou-2" to>
-          <p>rocketbook</p>
+          <p>{{listll.brandName}}</p>
         </router-link>
         <div class="gdName">Wave智能创意云笔记本 | 可上传云端、加热循环使用</div>
         <div class="infoItem">
@@ -107,33 +107,6 @@
   </div>
 </template>
 <script>
-import $ from "jquery";
- var oDiv = document.getElementsByTagName("left_image")[0];
-        var oP = document.getElementsByTagName("left_main_1")[0];
-        //鼠标按下
-        oP.onmousedown = function(event) {
-            event = event || window.event;
-            var deltaX = event.clientX - oP.offsetLeft;
-            var deltaY = event.clientY - oP.offsetTop;
-            oDiv.onmousemove = function(event) {
-                event = event || window.event;
-                var x = event.clientX - deltaX;
-                var y = event.clientY - deltaY;
-                if (x < 10) x = 0;
-                if (y < 10) y = 0;
-                if (x > oDiv.clientWidth - oP.clientWidth - 10) {
-                    x = oDiv.clientWidth - oP.clientWidth;
-                }
-                if (y > oDiv.clientHeight - oP.clientHeight - 10) {
-                    y = oDiv.clientHeight - oP.clientHeight;
-                }
-                oP.style.left = x + "px";
-                oP.style.top = y + "px";
-            }
-        }
-        document.onmouseup = function() {
-            oDiv.onmousemove = null;
-        }
 export default {
   data() {
     return {
@@ -146,8 +119,13 @@ export default {
         "https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg",
         "https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg",
         "https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg"
-      ]
+      ],
+     a:"2",
+     listll:{}
     };
+  },
+  mounted(){
+    this.xiangqing()
   },
   methods: {
     jian() {
@@ -155,6 +133,16 @@ export default {
     },
     jia() {
       this.num += 1;
+    },
+    xiangqing() {
+      let ff = this.id
+      // let datalist = new FormData();
+      // datalist.append= ('id',this.id)
+       this.$axios.get('/swag/product/detail/'+this.a,
+       ).then(res=>{
+         console.log(res);
+         this.listll=res.data.data.product
+       })
     }
   }
 };

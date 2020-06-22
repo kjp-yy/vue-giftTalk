@@ -18,7 +18,7 @@ const router = new Router({
         routes: [{
                 path: '/',
                 //刷新默认路径
-                redirect: '/Detailspage'
+                redirect: '/fenye'
             },
             {
                 path: '/fenye',

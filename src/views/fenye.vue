@@ -97,12 +97,15 @@ export default {
     // child
   },
   data() {
-    return {};
+    return {
+    };
+
   },
   mounted() {
     this.$axios.get("/");
   },
-  methods: {}
+  methods: {
+  }
 };
 </script>
 <style lang="scss">

@@ -294,7 +294,7 @@ export default {
   height: 100%;
 }
 .left_contaner.middle_img {
- 
+  
   border: 1px solid #ccc;
   box-sizing: border-box;
   position: relative;
@@ -308,6 +308,7 @@ export default {
 .left_contaner .middle_img img {
   width: 100%;
   height: 100%;
+
 }
 .left_contaner .carousel {
   width: 100%;
@@ -370,8 +371,8 @@ ul {
   margin-block-end: 0em;
 }
 .middle_img {
-  width: 350px;
-  height: 350px;
+  width: 220px;
+  height: 220px;
   .shade {
   width: 100px;
   height: 100px;
