@@ -24,6 +24,14 @@ module.exports = {
         pathRewrite:{
           '^/swagger':'http://cps-hk.com:8080/'
         }
+      },
+      // 验证码
+      '/swag':{
+        target:'http://192.168.1.122:8085/',
+        changeOrigin:true,
+        pathRewrite:{
+          '^/swag':'http://192.168.1.122:8085/'
+        }
       }
     },
 

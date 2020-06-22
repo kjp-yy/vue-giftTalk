@@ -20,7 +20,6 @@
         </li>
         <li v-show="isLogin" id="tuichu">
           <div>
-            <img :src="userinfo.icon" style="border-radius:50%" alt />
             <p>{{userinfo.username}}</p>
           </div>
           <router-link to="" @click.native="out()">退出</router-link>
@@ -65,6 +64,7 @@ export default {
           // 清空localstorage
           localStorage.clear()
           this.$router.push("/login");
+          this.$store.state.isLogin=false
       }
     }
   }
@@ -77,7 +77,7 @@ export default {
   top: 0;
   left: 0;
   box-shadow: 0 5px 20px -16px red;
-  z-index: 1;
+  z-index: 999;
   background: #f5f5f5;
 }
 .head {
@@ -97,7 +97,6 @@ export default {
   }
   .head_right {
     height: 50px;
-    // background: pink;
     display: flex;
     justify-content: space-around;
     align-items: center;

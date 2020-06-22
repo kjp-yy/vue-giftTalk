@@ -10,23 +10,18 @@
           label-width="100px"
           class="demo-ruleForm"
         >
-          <el-form-item label="邮箱" prop="email">
-            <el-input v-model="ruleForm.email"></el-input>
-          </el-form-item>
-          <el-form-item label="icon" prop="icon">
-            <el-input v-model="ruleForm.icon"></el-input>
-          </el-form-item>
-          <el-form-item label="note" prop="note">
-            <el-input v-model="ruleForm.note"></el-input>
+          <el-form-item label="用户名" prop="username">
+            <el-input v-model="ruleForm.username"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input v-model="ruleForm.password"></el-input>
           </el-form-item>
-          <el-form-item label="username" prop="username">
-            <el-input v-model="ruleForm.username"></el-input>
+          <el-form-item label="电话" prop="telephone">
+            <el-input v-model="ruleForm.telephone"></el-input>
           </el-form-item>
-          <el-form-item label="nickname" prop="nickName">
-            <el-input v-model="ruleForm.nickName"></el-input>
+          <el-form-item label="验证码" prop="authCode">
+            <el-button @click="get_code()">获取验证码</el-button>
+            <el-input v-model="ruleForm.authCode" placeholder="请输入验证码"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">立即创建</el-button>
@@ -46,55 +41,70 @@ export default {
   },
   data() {
     return {
+      code: "",
       ruleForm: {
-        email: "",
-        icon: "",
-        nickName: "",
-        note: "",
+        username: "",
         password: "",
-        username: ""
+        telephone: "",
+        authCode: ""
       },
       rules: {
         username: [
           { required: true, message: "请输入用户名", trigger: "blur" },
           { min: 3, max: 15, message: "长度在 3 到 15 个字符", trigger: "blur" }
         ],
-        email: [
-          { required: true, message: "请输入邮箱", trigger: "blur" },
-          { min: 5, max: 15, message: "长度在 5 到 15 个字符", trigger: "blur" }
-        ],
-        nickName: [
-          { required: true, message: "请输入昵称", trigger: "blur" },
-          { min: 13, max: 15, message: "长度在 3 到 5 个字符", trigger: "blur" }
-        ],
-        note: [
-          { required: true, message: "个人介绍哦", trigger: "blur" },
-          { min: 13, max: 50, message: "长度在 13 到 50 个字符", trigger: "blur" }
-        ],
         password: [
           { required: true, message: "请输入密码", trigger: "blur" },
           { min: 6, max: 15, message: "长度在 6 到 15 个字符", trigger: "blur" }
+        ],
+        telephone: [
+          { required: true, message: "请输入手机号", trigger: "blur" },
+          { min: 1, max: 10, message: "长度为11位数字", trigger: "blur" }
+        ],
+        authCode: [
+          { required: true, message: "请输入验证码", trigger: "blur" },
+          { min: 6, max: 6, message: "长度为 6 个数字", trigger: "blur" }
         ]
       }
     };
   },
   methods: {
+    // 获取验证码
+    get_code() {
+      this.$axios
+        .get("/swag/sso/getAuthCode", {
+          params: {
+            telephone: this.ruleForm.telephone
+          }
+        })
+        .then(res => {
+          // this.ruleForm.authCode=res.data.data
+          this.code = res.data.data;
+          alert("你的验证码为：" + this.code);
+        });
+    },
     submitForm(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          //   alert("submit!");
-          this.$axios
-            .post("/swagger/admin/register", this.ruleForm)
-            .then(res => {
-              if (res.data.code == 200) {
-                this.$router.push("/login");
-              }
-            });
-        } else {
-          console.log("error submit!!");
-          // alert('注册失败')
-          return false;
-        }
+          // 使用表单序列化请求数据
+            let datalist= new FormData();
+            datalist.append('username',this.ruleForm.username)
+            datalist.append('password',this.ruleForm.password)
+            datalist.append('telephone',this.ruleForm.telephone)
+            datalist.append('authCode',this.ruleForm.authCode)
+            this.$axios
+              .post("/swag/sso/register", datalist)
+              .then(res => {
+                console.log(res);
+                if (res.data.code == 200) {
+                  this.$router.push("/login");
+                }
+              });
+          } else {
+            console.log("error submit!!");
+            // alert('注册失败')
+            return false;
+          }
       });
     },
     resetForm(formName) {

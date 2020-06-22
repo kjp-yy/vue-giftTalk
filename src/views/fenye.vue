@@ -1,28 +1,88 @@
 <template>
-  <div>
+  <div class="body">
+    <!-- 头部 -->
     <top></top>
+    <!-- 轮播图 -->
+    <div class="main_right">
+      <div class="banner" id="banner">
+        <a href="#" class="d1" style="background:url(../../static/img/1.jpg) center no-repeat;"></a>
+        <a href="#" class="d1" style="background:url(../../static/img/2.jpg) center no-repeat;"></a>
+        <a href="#" class="d1" style="background:url(../../static/img/3.jpg) center no-repeat;"></a>
+        <a href="#" class="d1" style="background:url(../../static/img/4.jpg) center no-repeat;"></a>
+        <a href="#" class="d1" style="background:url(../../static/img/5.jpg) center no-repeat;"></a>
+        <div class="d2" id="banner_id">
+          <ul>
+            <li>
+              <img src="../../static/img/1.jpg" alt />
+            </li>
+            <li>
+              <img src="../../static/img/2.jpg" alt />
+            </li>
+            <li>
+              <img src="../../static/img/3.jpg" alt />
+            </li>
+            <li>
+              <img src="../../static/img/4.jpg" alt />
+            </li>
+            <li>
+              <img src="../../static/img/5.jpg" alt />
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <!-- main_list -->
     <div class="wrap">
-      <div style="width:100%;margin:10px auto;margin-top:100px">
-        <el-table :data="datalist">
-          <el-table-column prop="unixtime" label="时间戳" width="180"></el-table-column>
-          <el-table-column label="更新日期" width="180">
-            <template slot-scope="scope">
-              <div>
-                <h3 class="title">{{scope.row.updatetime}}</h3>
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column prop="content" label="内容"></el-table-column>
-        </el-table>
-        <div class="block" style="margin: 10px auto;">
-          <el-pagination
-            @current-change="handleCurrentChange"
-            :current-page="now_page"
-            :page-size="10"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="200"
-          ></el-pagination>
-          <!-- current-page 当前页数 -->
+      <ul class="main_list">
+        <li>
+          <a href="#">
+            <img src="../../static/img/main_list1.jpg" alt />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="../../static/img/main_list1.jpg" alt />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="../../static/img/main_list1.jpg" alt />
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="../../static/img/main_list1.jpg" alt />
+            <div class="kuai">
+              <img src="../../static/img/jiantou.png" alt />
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src="../../static/img/main_list1.jpg" alt />
+          </a>
+        </li>
+      </ul>
+    </div>
+    <!--今日精选 -->
+    <div class="wrap">
+      <div class="selected_today">
+        <div class="s_head">
+          <div class="head_left">
+            <h1>今日精选</h1>
+            <p>
+              礼物说已累计帮助
+              <span>2000</span>人送出礼物
+            </p>
+          </div>
+          <div class="head_right">
+            <div class="zuo">
+              <img src="../../static/img/zuo.png" alt />
+            </div>
+            <div class="you">
+              <img src="../../static/img/you.png" alt />
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -30,49 +90,28 @@
 </template>
 <script>
 import top from "@/components/header";
+import "../../static/lunbo";
 export default {
   components: {
     top
     // child
   },
   data() {
-    return {
-      kk: "",
-      datalist: [],
-      now_page: 0
-    };
+    return {};
   },
   mounted() {
-    this.getdata();
+    this.$axios.get("/");
   },
-  methods: {
-  //  获取聚合里面的笑话大全的数据
-    getdata() {
-      this.$axios
-        .get("/juhe/joke/content/list.php", {
-          params: {
-            key: "7004ec338dd21e2cd9bd5e9598623744",
-            time: "1418745237",
-            sort: "asc",
-            page: this.now_page
-          }
-        })
-        .then(res => {
-          this.datalist = res.data.result.data;
-        });
-    },
-
-    handleCurrentChange(val) {
-      this.now_page = val;
-      this.getdata();
-    }
-  }
+  methods: {}
 };
-</script>>
+</script>
 <style lang="scss">
 * {
   margin: 0;
   padding: 0;
+}
+.body {
+  background: #fafafa;
 }
 .wrap {
   width: 1200px;
@@ -83,5 +122,174 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+// 轮播图
+.main_right {
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+  margin-top: 110px;
+  .banner {
+    width: 100%;
+    height: 420px;
+    // background: pink;
+    overflow: hidden;
+    position: relative;
+    .d1 {
+      width: 100%;
+      height: 420px;
+      display: block;
+      position: absolute;
+      left: 0px;
+      top: 0px;
+    }
+    .d2 {
+      width: 120px;
+      clear: both;
+      position: absolute;
+      z-index: 100;
+      top: 12%;
+      right: 5%;
+      li {
+        width: 105px;
+        height: 56px;
+        overflow: hidden;
+        cursor: pointer;
+        margin: 6px 3px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      ul {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
+.nuw {
+  width: 103px;
+  border: 2px solid #fff;
+  transition: all 0.3s;
+}
+// main_list
+.main_list {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 24px;
+  li {
+    position: relative;
+    list-style-type: none;
+    a {
+      width: 228px;
+      height: 168px;
+      display: inline-block;
+      overflow: hidden;
+      border-radius: 5px;
+      img {
+        width: 228px;
+        height: 168px;
+        border-radius: 5px;
+        transition: all 0.3s linear;
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+      &:hover .kuai {
+        animation: jianjin 0.3s linear;
+        img {
+          animation: jianjin1 0.3s linear;
+        }
+        @keyframes jianjin {
+          0% {
+            width: 0;
+          }
+          100% {
+            width: 54px;
+          }
+        }
+        @keyframes jianjin1 {
+          0% {
+            width: 0;
+          }
+          100% {
+            width: 30px;
+          }
+        }
+      }
+      .kuai {
+        position: absolute;
+        bottom: -10px;
+        left: 184px;
+        width: 0;
+        height: 34px;
+        background: #d7103b;
+        box-shadow: 0 6px 10px 0 rgba(215, 16, 59, 0.16);
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+          width: 0;
+          height: 20px;
+        }
+      }
+    }
+  }
+}
+// 今日精选
+.selected_today {
+  width: 100%;
+  display: flex;
+  background: pink;
+  .s_head {
+    width: 1200px;
+    margin-top: 45px;
+    background: olive;
+    display: flex;
+    justify-content: space-between;
+    .head_left {
+      display: flex;
+      h1 {
+        font-weight: 600;
+        font-size: 30px;
+        line-height: 42px;
+      }
+      p {
+        font-size: 14px;
+        color: #7e7e7e;
+        display: flex;
+        margin-left: 30px;
+        span {
+          display: block;
+          font-weight: bold;
+        }
+      }
+    }
+    .head_right {
+      display: flex;
+      background: orange;
+      .zuo,
+      .you {
+        width: 34px;
+        height: 40px;
+        background: #fff;
+        border-radius: 4px;
+        border: 1px solid #d6d6d6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 14px;
+        cursor: pointer;
+        img {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+  }
 }
 </style>
