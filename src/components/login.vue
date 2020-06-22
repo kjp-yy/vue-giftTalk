@@ -38,7 +38,7 @@ export default {
     return {
       ruleForm: {
         username: "",
-        pass: ""
+        password: ""
       },
       rules: {
         username: [
@@ -61,13 +61,18 @@ export default {
       let that = this;
       that.$refs[formName].validate(valid => {
         if (valid) {
-          that.$axios.post("/swagger/admin/login", that.ruleForm).then(res => {
+          // 表单序列化请求数据
+          let datalist = new FormData();
+          datalist.append('username',this.ruleForm.username)
+          datalist.append('password',this.ruleForm.password)
+          that.$axios.post("/swag/sso/login", datalist).then(res => {
             if (res.data.code == 200) {
+              console.log("登陆成功")
               // 请求用户信息接口
               let user_value = "Bearer " + res.data.data.token;
               //  给vuex传token
               that.$store.commit("changelogin", user_value);
-              that.$axios.get("/swagger/admin/info").then(res => {
+              that.$axios.get("/swag/sso/info").then(res => {
                 that.$store.commit("usertatus", res.data.data);
               });
               // 跳转到首页

@@ -7,6 +7,7 @@ import ElementUI from 'element-ui';
 import Axios from 'axios';
 import VueAxios from 'vue-axios';
 import 'element-ui/lib/theme-chalk/index.css';
+import $ from 'jquery'
 import store from './store'
 Vue.config.productionTip = false
 Vue.prototype.$axios = Axios
