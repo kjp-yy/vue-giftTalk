@@ -6,7 +6,6 @@ import register from '@/components/register'
 import modify_pwd from '@/components/modify_pwd'
 import store from '@/store'
 import Detailspage from '@/views/Detailspage'
-import ll from '@/views/ll'
 Vue.use(Router)
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
@@ -46,11 +45,7 @@ const router = new Router({
                 name: '/Detailspage',
                 component: Detailspage
             },
-            {
-                path: '/ll',
-                name: '/ll',
-                component: ll
-           }
+        
         ]
     })
     // 使用router.beforeEach注册一个全局前置守卫，判断用户是否登录

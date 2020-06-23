@@ -104,7 +104,7 @@ export default {
     // 跳转到详情页
     jump_detail(x){
     //跳转到详情页并且传id 
-    //  this.$router.push({name: '/test', params: {detail_id: x}})
+     this.$router.push({name: '/Detailspage', params: {detail_id: x}})
     },
     // 改变商品分类
     change(n) {

@@ -43,7 +43,7 @@
         <div class="gdName">{{listll.note}}</div>
         <div class="infoItem">
           价格：
-          <span>￥{{listll.description}}</span>
+          <span>￥{{listll.price}}</span>
         </div>
         <div class="shipNote">
           <div class="shipNote-1">
@@ -63,7 +63,7 @@
         <div class="infoItem_amountCon">
           数量：
           <input type="button" value="-" @click="jian()" />
-          <input class="input2" type="text" v-model="num" eadonly />
+          <input class="input2" type="text" v-model="num" readonly />
           <input type="button" value="+" @click="jia()" />
         </div>
         <div class="infoItem_buyAll">
@@ -122,12 +122,16 @@ export default {
         "https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg",
         "https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg"
       ],
-     a:"2",
-     listll:{}
+     a:'',
+     listll:{},
+    //  gouwu:{}
     };
   },
   mounted(){
-    this.xiangqing()
+  
+    this.a=this.$route.params.detail_id;
+      this.xiangqing();
+      // this.gwu()
   },
   methods: {
     jian() {
@@ -141,7 +145,6 @@ export default {
       this.num += 1;
     },
     xiangqing() {
-      let ff = this.id
       // let datalist = new FormData();
       // datalist.append= ('id',this.id)
        this.$axios.get('/swag/product/detail/'+this.a,
@@ -149,7 +152,12 @@ export default {
          console.log(res);
          this.listll=res.data.data.product
        })
-    }
+    },
+    // gwu() {
+    //    this.$axios.post('/swag/cart/add').then(res=> {
+    //     console.log(res)
+    //   })
+    // }
   }
 };
 </script>
