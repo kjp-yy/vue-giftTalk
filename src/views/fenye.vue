@@ -86,6 +86,7 @@
         </div>
       </div>
     </div>
+    <router-link to="shoppingCart"><button>跳转</button></router-link>
   </div>
 </template>
 <script>

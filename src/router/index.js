@@ -6,6 +6,7 @@ import register from '@/components/register'
 import store from '@/store'
 import Detailspage from '@/views/Detailspage'
 import ll from '@/views/ll'
+import shoppingCart from '@/components/shoppingCart'
 Vue.use(Router)
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
@@ -24,6 +25,11 @@ const router = new Router({
                 path: '/fenye',
                 name: 'fenye',
                 component: fenye
+            },
+            {
+                path: '/shoppingCart',
+                name: 'shoppingCart',
+                component: shoppingCart
             },
             {
                 path: '/login',
