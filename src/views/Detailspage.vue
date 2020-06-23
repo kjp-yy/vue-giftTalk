@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <div class="main">
       <div class="left_main">
@@ -39,10 +40,10 @@
         <router-link class="rou-2" to>
           <p>{{listll.brandName}}</p>
         </router-link>
-        <div class="gdName">Wave智能创意云笔记本 | 可上传云端、加热循环使用</div>
+        <div class="gdName">{{listll.note}}</div>
         <div class="infoItem">
           价格：
-          <span>￥99元</span>
+          <span>￥{{listll.description}}</span>
         </div>
         <div class="shipNote">
           <div class="shipNote-1">
@@ -55,8 +56,8 @@
         <div class="infoItem_sizeCon">
           组合：
           <div class="itemCon">
-            <a href>标准版记事本+笔【黑、蓝随机】</a>
-            <a href>标准版记事本+笔【黑、蓝随机】</a>
+            <a href>{{listll.name}}</a>
+            <a href>{{listll.productCategoryName}}</a>
           </div>
         </div>
         <div class="infoItem_amountCon">
@@ -108,6 +109,7 @@
 </template>
 <script>
 export default {
+ 
   data() {
     return {
       num: 1,
@@ -129,7 +131,11 @@ export default {
   },
   methods: {
     jian() {
-      this.num -= 1;
+      if(this.num==1){
+        this.num-=0;
+      }else{
+        this.num-=1;
+      }
     },
     jia() {
       this.num += 1;
@@ -147,6 +153,7 @@ export default {
   }
 };
 </script>
+
 <style lang="scss">
 .main {
   width: 1000px;
@@ -279,10 +286,9 @@ export default {
       height: 20px;
       display: inline-block;
       line-height: 20px;
-      vertical-align: middle;
       color: #999;
       font-size: 13px;
-      text-align: center;
+     display: block;
       background: #dcdcdc;
       margin-top: 5px;
     }
