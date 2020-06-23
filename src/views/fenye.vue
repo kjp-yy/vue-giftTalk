@@ -3,69 +3,56 @@
     <!-- 头部 -->
     <top></top>
     <!-- 轮播图 -->
-    <div class="main_right">
-      <div class="banner" id="banner">
-        <a href="#" class="d1" style="background:url(../../static/img/1.jpg) center no-repeat;"></a>
-        <a href="#" class="d1" style="background:url(../../static/img/2.jpg) center no-repeat;"></a>
-        <a href="#" class="d1" style="background:url(../../static/img/3.jpg) center no-repeat;"></a>
-        <a href="#" class="d1" style="background:url(../../static/img/4.jpg) center no-repeat;"></a>
-        <a href="#" class="d1" style="background:url(../../static/img/5.jpg) center no-repeat;"></a>
-        <div class="d2" id="banner_id">
-          <ul>
-            <li>
-              <img src="../../static/img/1.jpg" alt />
-            </li>
-            <li>
-              <img src="../../static/img/2.jpg" alt />
-            </li>
-            <li>
-              <img src="../../static/img/3.jpg" alt />
-            </li>
-            <li>
-              <img src="../../static/img/4.jpg" alt />
-            </li>
-            <li>
-              <img src="../../static/img/5.jpg" alt />
-            </li>
-          </ul>
+    <div class="wrap_slider">
+      <div class="main_right">
+        <div class="banner" id="banner">
+          <a href="#" class="d1" style="background:url(../../static/img/1.jpg) center no-repeat;"></a>
+          <a href="#" class="d1" style="background:url(../../static/img/2.jpg) center no-repeat;"></a>
+          <a href="#" class="d1" style="background:url(../../static/img/3.jpg) center no-repeat;"></a>
+          <a href="#" class="d1" style="background:url(../../static/img/4.jpg) center no-repeat;"></a>
+          <a href="#" class="d1" style="background:url(../../static/img/5.jpg) center no-repeat;"></a>
+          <div class="d2" id="banner_id">
+            <ul>
+              <li>
+                <img src="../../static/img/1.jpg" alt />
+              </li>
+              <li>
+                <img src="../../static/img/2.jpg" alt />
+              </li>
+              <li>
+                <img src="../../static/img/3.jpg" alt />
+              </li>
+              <li>
+                <img src="../../static/img/4.jpg" alt />
+              </li>
+              <li>
+                <img src="../../static/img/5.jpg" alt />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
     <!-- main_list -->
     <div class="wrap">
-      <ul class="main_list">
-        <li>
-          <a href="#">
-            <img src="../../static/img/main_list1.jpg" alt />
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="../../static/img/main_list1.jpg" alt />
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="../../static/img/main_list1.jpg" alt />
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="../../static/img/main_list1.jpg" alt />
-            <div class="kuai">
-              <img src="../../static/img/jiantou.png" alt />
-            </div>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src="../../static/img/main_list1.jpg" alt />
-          </a>
-        </li>
-      </ul>
+      <div class="main_list">
+        <ul class="mian_first">
+          <li
+            v-for="(item,index) in main_list"
+            :key="index"
+            :class="step==index?class2:class1"
+            @click="change(index)"
+          >{{item.name}}</li>
+        </ul>
+        <ul class="main_list_all">
+          <li v-for="(it,index) in childrenitem" :key="index"  @click='jump_detail(it.id)'>
+            <h3>{{it.name}}</h3>
+          </li>
+        </ul>
+      </div>
     </div>
     <!--今日精选 -->
-    <div class="wrap">
+    <!-- <div class="wrap">
       <div class="selected_today">
         <div class="s_head">
           <div class="head_left">
@@ -85,8 +72,12 @@
           </div>
         </div>
       </div>
+<<<<<<< HEAD
     </div>
     <router-link to="shoppingCart"><button>跳转</button></router-link>
+=======
+    </div>-->
+>>>>>>> 94a74d7a5d8407d3d6c7d823177e8cfc7db290d1
   </div>
 </template>
 <script>
@@ -99,13 +90,32 @@ export default {
   },
   data() {
     return {
+      // main_list 获取数据
+      main_list: [],
+      main_list_all: [],
+      step: 0,
+      class1: "tablist",
+      class2: "tablist active",
+      childrenitem: []
     };
-
   },
   mounted() {
-    this.$axios.get("/");
+    this.$axios.get("/swag/product/categoryTreeList").then(res => {
+      this.main_list = res.data.data;
+    this.change(0)
+    });
   },
   methods: {
+    // 跳转到详情页
+    jump_detail(x){
+    //跳转到详情页并且传id 
+     this.$router.push({name: '/Detailspage', params: {detail_id: x}})
+    },
+    // 改变商品分类
+    change(n) {
+      this.step = n;
+      this.childrenitem = this.main_list[n].children;
+    }
   }
 };
 </script>
@@ -181,68 +191,50 @@ export default {
 }
 // main_list
 .main_list {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 24px;
-  li {
-    position: relative;
-    list-style-type: none;
-    a {
-      width: 228px;
-      height: 168px;
-      display: inline-block;
-      overflow: hidden;
-      border-radius: 5px;
-      img {
-        width: 228px;
-        height: 168px;
-        border-radius: 5px;
-        transition: all 0.3s linear;
-        &:hover {
-          transform: scale(1.1);
-        }
-      }
-      &:hover .kuai {
-        animation: jianjin 0.3s linear;
-        img {
-          animation: jianjin1 0.3s linear;
-        }
-        @keyframes jianjin {
-          0% {
-            width: 0;
-          }
-          100% {
-            width: 54px;
-          }
-        }
-        @keyframes jianjin1 {
-          0% {
-            width: 0;
-          }
-          100% {
-            width: 30px;
-          }
-        }
-      }
-      .kuai {
-        position: absolute;
-        bottom: -10px;
-        left: 184px;
-        width: 0;
-        height: 34px;
-        background: #d7103b;
-        box-shadow: 0 6px 10px 0 rgba(215, 16, 59, 0.16);
-        border-radius: 2px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        img {
-          width: 0;
-          height: 20px;
-        }
-      }
+  margin-top: 20px;
+  .mian_first {
+    display: flex;
+    justify-content: space-around;
+    li {
+      list-style-type: none;
+      cursor: pointer;
     }
   }
+  .main_list_all {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    flex-direction: row;
+    li {
+      list-style-type: none;
+    }
+    h3 {
+      font-size: 16px;
+      text-align: center;
+      width: 100px;
+      height: 50px;
+      background: #F0F0F0;
+      border-radius: 50px;
+      line-height: 50px;
+      cursor: pointer;
+    }
+  }
+}
+.tablist {
+  width: 25%;
+  height: 40px;
+  margin: 0 10px;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 5px;
+  background-color: rgba(87, 79, 79, 0.5);
+  color: white;
+  font-weight: bold;
+  float: left;
+}
+.active {
+  background-color: gold;
 }
 // 今日精选
 .selected_today {

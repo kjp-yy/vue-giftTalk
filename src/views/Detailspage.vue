@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <div class="main">
       <div class="left_main">
@@ -39,10 +40,10 @@
         <router-link class="rou-2" to>
           <p>{{listll.brandName}}</p>
         </router-link>
-        <div class="gdName">Wave智能创意云笔记本 | 可上传云端、加热循环使用</div>
+        <div class="gdName">{{listll.note}}</div>
         <div class="infoItem">
           价格：
-          <span>￥99元</span>
+          <span>￥{{listll.price}}</span>
         </div>
         <div class="shipNote">
           <div class="shipNote-1">
@@ -55,14 +56,14 @@
         <div class="infoItem_sizeCon">
           组合：
           <div class="itemCon">
-            <a href>标准版记事本+笔【黑、蓝随机】</a>
-            <a href>标准版记事本+笔【黑、蓝随机】</a>
+            <a href>{{listll.name}}</a>
+            <a href>{{listll.productCategoryName}}</a>
           </div>
         </div>
         <div class="infoItem_amountCon">
           数量：
           <input type="button" value="-" @click="jian()" />
-          <input class="input2" type="text" v-model="num" eadonly />
+          <input class="input2" type="text" v-model="num" readonly />
           <input type="button" value="+" @click="jia()" />
         </div>
         <div class="infoItem_buyAll">
@@ -108,6 +109,7 @@
 </template>
 <script>
 export default {
+ 
   data() {
     return {
       num: 1,
@@ -120,22 +122,29 @@ export default {
         "https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg",
         "https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg"
       ],
-     a:"2",
-     listll:{}
+     a:'',
+     listll:{},
+    //  gouwu:{}
     };
   },
   mounted(){
-    this.xiangqing()
+  
+    this.a=this.$route.params.detail_id;
+      this.xiangqing();
+      // this.gwu()
   },
   methods: {
     jian() {
-      this.num -= 1;
+      if(this.num==1){
+        this.num-=0;
+      }else{
+        this.num-=1;
+      }
     },
     jia() {
       this.num += 1;
     },
     xiangqing() {
-      let ff = this.id
       // let datalist = new FormData();
       // datalist.append= ('id',this.id)
        this.$axios.get('/swag/product/detail/'+this.a,
@@ -143,10 +152,16 @@ export default {
          console.log(res);
          this.listll=res.data.data.product
        })
-    }
+    },
+    // gwu() {
+    //    this.$axios.post('/swag/cart/add').then(res=> {
+    //     console.log(res)
+    //   })
+    // }
   }
 };
 </script>
+
 <style lang="scss">
 .main {
   width: 1000px;
@@ -279,10 +294,9 @@ export default {
       height: 20px;
       display: inline-block;
       line-height: 20px;
-      vertical-align: middle;
       color: #999;
       font-size: 13px;
-      text-align: center;
+     display: block;
       background: #dcdcdc;
       margin-top: 5px;
     }

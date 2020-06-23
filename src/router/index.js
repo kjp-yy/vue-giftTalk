@@ -3,10 +3,14 @@ import Router from 'vue-router'
 import fenye from '@/views/fenye'
 import login from '@/components/login'
 import register from '@/components/register'
+import modify_pwd from '@/components/modify_pwd'
 import store from '@/store'
 import Detailspage from '@/views/Detailspage'
+<<<<<<< HEAD
 import ll from '@/views/ll'
 import shoppingCart from '@/components/shoppingCart'
+=======
+>>>>>>> 94a74d7a5d8407d3d6c7d823177e8cfc7db290d1
 Vue.use(Router)
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
@@ -42,15 +46,16 @@ const router = new Router({
                 component: register
             },
             {
-                 path: '/Detailspage',
-                 name: '/Detailspage',
-                 component: Detailspage
+                path: '/modify_pwd',
+                name: '/modify_pwd',
+                component: modify_pwd
             },
             {
-                path: '/ll',
-                name: '/ll',
-                component: ll
-           }
+                path: '/Detailspage',
+                name: '/Detailspage',
+                component: Detailspage
+            },
+        
         ]
     })
     // 使用router.beforeEach注册一个全局前置守卫，判断用户是否登录
