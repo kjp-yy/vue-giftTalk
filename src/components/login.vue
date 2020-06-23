@@ -21,6 +21,7 @@
             <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
             <el-button @click="jump()">注册</el-button>
+            <el-button @click="forget_pwd()">忘记密码</el-button>
           </el-form-item>
         </el-form>
       </div>
@@ -57,6 +58,11 @@ export default {
     jump() {
       this.$router.push("/register");
     },
+    // 忘记密码
+    forget_pwd(){
+      this.$router.push('/modify_pwd')
+    },
+    // 表单提交事件
     submitForm(formName) {
       let that = this;
       that.$refs[formName].validate(valid => {
