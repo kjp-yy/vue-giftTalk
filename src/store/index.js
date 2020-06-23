@@ -18,6 +18,7 @@ const store = new Vuex.Store({
     },
     // 提交更新的数据
     mutations: {
+        // 用户登录信息
         usertatus(state, user) {
             if (user) {
                 state.userinfo = user;

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import fenye from '@/views/fenye'
 import login from '@/components/login'
 import register from '@/components/register'
+import modify_pwd from '@/components/modify_pwd'
 import store from '@/store'
 import Detailspage from '@/views/Detailspage'
 import ll from '@/views/ll'
@@ -36,9 +37,14 @@ const router = new Router({
                 component: register
             },
             {
-                 path: '/Detailspage',
-                 name: '/Detailspage',
-                 component: Detailspage
+                path: '/modify_pwd',
+                name: '/modify_pwd',
+                component: modify_pwd
+            },
+            {
+                path: '/Detailspage',
+                name: '/Detailspage',
+                component: Detailspage
             },
             {
                 path: '/ll',
